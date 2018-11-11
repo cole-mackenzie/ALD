@@ -75,10 +75,12 @@ for url in rss_urls:
 			try:
 				fico = float(child.find('{http://www.sec.gov/edgar/document/absee/autoloan/assetdata}obligorCreditScore').text)
 			except:
-				fico = 0
+				fico = 'Missing'
 			with no_print():
 				asset(month, balance, fico, dq_status)
 
+		no_fico_dq = 0
+		no_fico_bal = 0
 		lt_500_dq = 0
 		lt_500_bal = 0
 		dq_501_600 = 0
@@ -92,7 +94,13 @@ for url in rss_urls:
 		report_month = asset_list[1].month
 
 		for x in asset_list:
-			if x.fico <= 500:
+			if x.fico == 'Missing':
+				if x.dq_status > 60:
+					no_fico_dq = no_fico_dq + x.balance 
+					no_fico_bal = no_fico_bal + x.balance
+				else:
+					no_fico_bal = no_fico_bal + x.balance
+			elif x.fico <= 500:
 				if x.dq_status > 60:
 					lt_500_dq = lt_500_dq + x.balance
 					lt_500_bal = lt_500_bal + x.balance
@@ -123,7 +131,7 @@ for url in rss_urls:
 				else:
 					bal_800 = bal_800 + x.balance
 
-		dq_data = {'Collection Month':report_month,'LT 500 DQ': lt_500_dq, 'LT 500 Bal': lt_500_bal, '501-600 DQ':dq_501_600, '501-600 Bal':bal_501_600, '601-700 DQ':dq_601_700, '601-700 Bal': bal_601_700,'701-800 DQ':dq_701_800, '701-800 Bal':bal_701_800, '800+ DQ': dq_800,'800+ Bal': bal_800, 'Deal':deal}
+		dq_data = {'Collection Month':report_month,'No FICO DQ':no_fico_dq,'No FICO Bal':lt_500_bal,'LT 500 DQ': lt_500_dq, 'LT 500 Bal': lt_500_bal, '501-600 DQ':dq_501_600, '501-600 Bal':bal_501_600, '601-700 DQ':dq_601_700, '601-700 Bal': bal_601_700,'701-800 DQ':dq_701_800, '701-800 Bal':bal_701_800, '800+ DQ': dq_800,'800+ Bal': bal_800, 'Deal':deal}
 		dq_df = pd.DataFrame(data=dq_data, index = [0])
 		final_file = r'C:\Users\dcsma\Documents\Python Scripts\ALD\Auto Loan DQ by FICO.csv'
 		with open(final_file, 'a') as f:
