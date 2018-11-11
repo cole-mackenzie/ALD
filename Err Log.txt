@@ -1,0 +1,14 @@
+failuers:
+	-WOART 2017-A:
+		-month of september 2017
+		-err type on reporting period ending date
+		-Status: open
+	-AART 2017-1:
+		-first data tape
+		-error related to an out of order filing page
+		-Status: fixed via adjustment to construct_url function
+	-AART 2017-4:
+		-failed at march 2018
+		-'access denied' when sending to xml page;
+		-Status: Open 
+	

@@ -131,7 +131,7 @@ for url in rss_urls:
 				else:
 					bal_800 = bal_800 + x.balance
 
-		dq_data = {'Collection Month':report_month,'No FICO DQ':no_fico_dq,'No FICO Bal':lt_500_bal,'LT 500 DQ': lt_500_dq, 'LT 500 Bal': lt_500_bal, '501-600 DQ':dq_501_600, '501-600 Bal':bal_501_600, '601-700 DQ':dq_601_700, '601-700 Bal': bal_601_700,'701-800 DQ':dq_701_800, '701-800 Bal':bal_701_800, '800+ DQ': dq_800,'800+ Bal': bal_800, 'Deal':deal}
+		dq_data = {'Collection Month':report_month,'No FICO DQ':no_fico_dq,'No FICO Bal':no_fico_bal,'LT 500 DQ': lt_500_dq, 'LT 500 Bal': lt_500_bal, '501-600 DQ':dq_501_600, '501-600 Bal':bal_501_600, '601-700 DQ':dq_601_700, '601-700 Bal': bal_601_700,'701-800 DQ':dq_701_800, '701-800 Bal':bal_701_800, '800+ DQ': dq_800,'800+ Bal': bal_800, 'Deal':deal}
 		dq_df = pd.DataFrame(data=dq_data, index = [0])
 		final_file = r'C:\Users\dcsma\Documents\Python Scripts\ALD\Auto Loan DQ by FICO.csv'
 		with open(final_file, 'a') as f:
