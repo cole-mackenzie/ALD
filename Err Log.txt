@@ -1,4 +1,4 @@
-failuers:
+failures:
 	-WOART 2017-A:
 		-month of september 2017
 		-err type on reporting period ending date
